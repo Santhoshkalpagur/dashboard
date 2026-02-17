@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 90%;
+
+    --card: 220 18% 11%;
+    --card-foreground: 210 20% 90%;
+
+    --popover: 220 18% 13%;
+    --popover-foreground: 210 20% 90%;
+
+    --primary: 190 85% 48%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 16% 18%;
+    --secondary-foreground: 210 20% 80%;
+
+    --muted: 220 14% 15%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 190 60% 20%;
+    --accent-foreground: 190 85% 70%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 20%;
+    --ring: 190 85% 48%;
+
+    --radius: 0.5rem;
+
+    /* Custom ATM status tokens */
+    --status-normal: 142 70% 45%;
+    --status-suspicious: 38 92% 50%;
+    --status-critical: 0 72% 51%;
+    --status-offline: 220 10% 40%;
+
+    /* Glow effects */
+    --glow-primary: 190 85% 48%;
+    --glow-danger: 0 72% 51%;
+    --glow-warning: 38 92% 50%;
+    --glow-success: 142 70% 45%;
+
+    --sidebar-background: 220 20% 9%;
+    --sidebar-foreground: 210 20% 80%;
+    --sidebar-primary: 190 85% 48%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 16% 16%;
+    --sidebar-accent-foreground: 210 20% 80%;
+    --sidebar-border: 220 15% 16%;
+    --sidebar-ring: 190 85% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .glow-primary {
+    box-shadow: 0 0 20px -5px hsl(var(--glow-primary) / 0.4);
+  }
+  .glow-danger {
+    box-shadow: 0 0 20px -5px hsl(var(--glow-danger) / 0.5);
+  }
+  .glow-warning {
+    box-shadow: 0 0 20px -5px hsl(var(--glow-warning) / 0.4);
+  }
+  .glow-success {
+    box-shadow: 0 0 20px -5px hsl(var(--glow-success) / 0.4);
+  }
+
+  .status-pulse-critical {
+    animation: pulse-critical 2s ease-in-out infinite;
+  }
+  .status-pulse-suspicious {
+    animation: pulse-suspicious 3s ease-in-out infinite;
+  }
+
+  .glass {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .gradient-border {
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.5), hsl(var(--border)));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@keyframes pulse-critical {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes pulse-suspicious {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Leaflet overrides for dark theme */
+.leaflet-container {
+  background: hsl(220 20% 7%) !important;
+}
+.leaflet-tile-pane {
+  filter: brightness(0.7) contrast(1.2) saturate(0.8);
+}
